@@ -199,18 +199,18 @@ public class DepartmentSearch extends JPanel{
 			public void actionPerformed(ActionEvent ae) {
 				
 				if(employees.isSelected()) {
-					textBox.append(employees.getText() + "\t\t");
+					textBox.append(employees.getText() + "\t");
 				} else {
 					if(classBox.getSelectedItem().toString().equals("...")) {
 						return;
 					}
 
-					textBox.append(needed.getText() + "\t\t");
+					textBox.append(needed.getText() + "\t");
 				}
 				
 				for(JRadioButton btn : deptBtns) {
 					if(btn.isSelected()) {
-						textBox.append("Department: " + btn.getText() + "\t\t");
+						textBox.append("Department: " + btn.getText() + "\t");
 					}
 				}
 				
@@ -292,6 +292,7 @@ public class DepartmentSearch extends JPanel{
 		this.add(printBtn);
 		this.add(clearBtn);
 		
+		classBox.addItem(deptChanged(tempConn, 0));
 	}
 	
 	private String[] deptChanged(Connection conn, int deptChosen) {
