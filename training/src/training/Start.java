@@ -10,6 +10,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -21,6 +24,14 @@ import gui.*;
 public class Start extends JFrame{
 
 	public static void main(String[] args) {
+		Path path = Paths.get(System.getProperty("user.home")).resolve("staffDevelopment.mv");
+		File file = new File(path.toString());
+		if(!file.exists()) {
+			System.out.println("File Doesn't exist yet");
+			System.exit(0);
+		}
+
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				initialize();
