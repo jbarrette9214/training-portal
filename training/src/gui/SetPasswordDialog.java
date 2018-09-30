@@ -17,7 +17,8 @@ import javax.swing.SwingConstants;
 
 public class SetPasswordDialog extends JDialog{
 
-	public SetPasswordDialog(Connection conn) {
+	public SetPasswordDialog(Connection conn, String userName) {
+		
 		JDialog window = this;
 		
 		window.setModal(true);
@@ -106,9 +107,11 @@ public class SetPasswordDialog extends JDialog{
 					//passwords match and nameField isn't empty
 					String sql = "alter user SA rename to " + nameField.getText().toUpperCase();
 					try {
-						PreparedStatement stmt = conn.prepareStatement(sql);
-						stmt.executeUpdate();
-						
+						PreparedStatement stmt;
+						if(nameField.isEditable()) {
+							stmt = conn.prepareStatement(sql);
+							stmt.executeUpdate();
+						}
 						sql = "alter user " + nameField.getText().toUpperCase() + " set password '" +
 								pass + "'";
 						stmt = conn.prepareStatement(sql);
@@ -136,14 +139,24 @@ public class SetPasswordDialog extends JDialog{
 		quitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				System.exit(0);
+				if(nameField.getText().isEmpty()) {
+					System.exit(0);			//empty so in initial setup just exit program
+				} else {
+					window.setVisible(false);
+				}
 			}
 		});
 		
 		
+		if(userName != null) {
+			nameField.setText(userName);
+			nameField.setEditable(false);
+		}
+		
 		window.setVisible(true);
 		
 	}
+	
 	
 	private Font font1 = new Font("sans serif", Font.PLAIN, 20);
 }

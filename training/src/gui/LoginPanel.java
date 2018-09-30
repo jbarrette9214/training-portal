@@ -76,7 +76,10 @@ public class LoginPanel extends JPanel {
 						admin = false;
 						System.out.println(e1);
 					}
-					mainWindow.setConnection(conn, admin, userText.getText());
+					String user = userText.getText();
+					userText.setText("");
+					passField.setText("");
+					mainWindow.setConnection(conn, admin, user);
 				}
 			}
 		});

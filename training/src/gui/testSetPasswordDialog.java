@@ -8,7 +8,7 @@ public class testSetPasswordDialog {
 		// TODO Auto-generated method stub
 		
 		Connection conn = null;
-		SetPasswordDialog setDialog = new SetPasswordDialog(conn);
+		SetPasswordDialog setDialog = new SetPasswordDialog(conn, null);
 		setDialog.dispose();
 	}
 

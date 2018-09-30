@@ -26,26 +26,16 @@ public class MyMenu extends JMenuBar{
 		fileMenu = new JMenu("File  ");
 		fileMenu.setMnemonic(KeyEvent.VK_F);	//alt + f
 		
-		JMenuItem switchLogin = new JMenuItem("Switch User/Login");
-		fileMenu.add(switchLogin);
-		switchLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					//don't do anything here
-				}
-				mainWindow.setPaneltoLogin();
-			
-			}
-		});
-		
-		
 		JMenuItem logoutFile = new JMenuItem("Log Out");
 		fileMenu.add(logoutFile);
 		logoutFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-//add code for listener here
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				mainWindow.setPaneltoLogin();
 			}
 		});
 			
@@ -94,20 +84,6 @@ public class MyMenu extends JMenuBar{
 				newDept.createWindow(conn);			}
 		});
 
-		createMenu.addSeparator();
-		
-		JMenuItem dbUserCreate = new JMenuItem("Create New DB User");
-		createMenu.add(dbUserCreate);
-		dbUserCreate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				
-				
-				
-				
-//code for listener
-			}
-		});
-		
 		
 		
 		
@@ -142,28 +118,14 @@ public class MyMenu extends JMenuBar{
 		setupMenu.add(changePassSetup);
 		changePassSetup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				
-				
-//code for listener				
-
+				SetPasswordDialog changePass = new SetPasswordDialog(conn, mainWindow.getUserName());
 			}
 		});
 		
-		
-		JMenuItem dbSetup = new JMenuItem("Initial Setup of Database");
-		setupMenu.add(dbSetup);
-		dbSetup.setName("initialSetup");
-		dbSetup.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				
-//code for listener	
-			}
-		});
 		
 		//turn things off for not admin priveledges
 		createMenu.setEnabled(false);
 		editMenu.setEnabled(false);
-		dbSetup.setEnabled(false);
 		
 		
 		

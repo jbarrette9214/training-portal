@@ -48,7 +48,7 @@ public class Start extends JFrame{
 			Connection conn2 = sqlFunc.getDbConnection("sa", "");
 			
 			//add something to change the user name and password
-			SetPasswordDialog setupUser = new SetPasswordDialog(conn2);
+			SetPasswordDialog setupUser = new SetPasswordDialog(conn2, null);
 		}
 
 		
@@ -169,6 +169,11 @@ public class Start extends JFrame{
 	public void changePanel(String panel) {
 		card.show(mainPanel, panel);
 	}
+	
+	public String getUserName() {
+		return username;
+	}
+	
 	
 	private static Connection conn = null;
 	private static Start mainWindow = new Start();
