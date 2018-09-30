@@ -123,8 +123,8 @@ public class testSQLfunctions {
 				
 				
 				
-				String temp = sqlFunc.deleteEmployee(conn, "alannah", "chappel", 1, "none");
-				System.out.println(temp);
+				//String temp = sqlFunc.deleteEmployee(conn, "alannah", "chappel", 1, "none");
+				//System.out.println(temp);
 				PreparedStatement stmt7 = conn.prepareStatement("select * from employee");
 				ResultSet rs7 = stmt7.executeQuery();
 				while(rs7.next()) {

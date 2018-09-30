@@ -16,19 +16,39 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+
 import javax.swing.*;
 
 import gui.*;
+import misc.*;
 
 
 public class Start extends JFrame{
 
 	public static void main(String[] args) {
-		Path path = Paths.get(System.getProperty("user.home")).resolve("staffDevelopment.mv");
+		Path path = Paths.get(System.getProperty("user.home")).resolve("staffDevelopment.mv.db");
 		File file = new File(path.toString());
 		if(!file.exists()) {
-			System.out.println("File Doesn't exist yet");
-			System.exit(0);
+			createDatabase create = new createDatabase();
+			
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null, "Database not found.  Would you like to create?"," ", dialogButton);
+			if(dialogResult == JOptionPane.YES_OPTION) {
+				create.createNewDatabase();
+			} else {
+				System.exit(0);
+			}
+			
+			//below temporary just for testing purposes
+			System.out.println("in start.java main function, remove");
+			PopulateDatabase populate = new PopulateDatabase();
+
+			//need to open the database
+			sqlFunctions sqlFunc = new sqlFunctions();
+			Connection conn2 = sqlFunc.getDbConnection("sa", "");
+			
+			//add something to change the user name and password
+			SetPasswordDialog setupUser = new SetPasswordDialog(conn2);
 		}
 
 		
@@ -47,7 +67,8 @@ public class Start extends JFrame{
 		Toolkit kit = mainWindow.getToolkit();
 		Dimension wndSize = kit.getScreenSize();
 		mainWindow.setTitle("Staff Development Portal");
-		mainWindow.setSize(new Dimension(wndSize.width, wndSize.height - 50));
+		mainWindow.setSize(new Dimension(1250, 750));
+		mainWindow.setResizable(false);
 		mainWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		mainWindow.setLocationRelativeTo(null);
 		mainWindow.setLayout(new BorderLayout());
