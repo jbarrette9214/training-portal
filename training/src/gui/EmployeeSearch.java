@@ -24,6 +24,7 @@ import misc.employeeFunctions;
 public class EmployeeSearch extends JPanel{
 
 	public EmployeeSearch(Start mainWindow) {
+		
 		this.setPreferredSize(new Dimension(mainWindow.getWidth(), mainWindow.getHeight() - 60));
 		this.setLayout(null);
 		this.setBackground(new Color(235, 220, 239));

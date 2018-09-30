@@ -58,8 +58,9 @@ public class navPanel extends JPanel{
 		
 		
 		//read and setup the icons for the buttons
-		Path iconPath = Paths.get(System.getProperty("user.dir")).resolve("src").resolve("training")
+		Path iconPath = Paths.get("").toAbsolutePath().resolve("training").resolve("src").resolve("training")
 				.resolve("images");
+		System.out.println(iconPath);
 		try {
 			Image icon = ImageIO.read(new File(iconPath.toString() + "\\person.png"));
 			byEmployeeBtn.setIcon(new ImageIcon(icon));

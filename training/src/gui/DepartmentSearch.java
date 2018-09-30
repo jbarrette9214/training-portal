@@ -172,7 +172,7 @@ public class DepartmentSearch extends JPanel{
 		
 		JSeparator sep2 = new JSeparator();
 		sep2.setSize(mainWindow.getWidth(), 1);
-		sep2.setLocation(1, yCoord + 30);
+		sep2.setLocation(1, yCoord + 40);
 		sep2.setVisible(true);
 		this.add(sep2);
 		
@@ -257,7 +257,7 @@ public class DepartmentSearch extends JPanel{
 		clearBtn.setLocation(mainWindow.getWidth() - 75, 450);
 		clearBtn.setVisible(true);
 
-		Path iconPath = Paths.get(System.getProperty("user.dir")).resolve("src").resolve("training")
+		Path iconPath = Paths.get("").resolve("training").resolve("src").resolve("training")
 				.resolve("images");
 		try {
 			Image icon = ImageIO.read(new File(iconPath.toString() + "\\printer.png"));
