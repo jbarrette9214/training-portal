@@ -25,4 +25,22 @@ public class ClassFunctions {
 		
 		return classDesc;
 	}
+	
+	public String getDescriptionFromCode(Connection conn, String code) {
+		String classDesc = "";
+		try {
+			String sql = "select description from required_class_by_dept where classCode = '" + code + "'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				classDesc = rs.getString("description");
+			}
+		} catch(SQLException e) {
+			System.out.println(e);
+		}
+		
+		return classDesc;
+	}
+	
+	
 }
