@@ -99,7 +99,7 @@ public class CreateNewDepartment extends JDialog {
 		JButton create = new JButton("Create");
 		create.setSize(100, 30);
 		create.setBackground(new Color(238, 238, 238));
-		create.setLocation(175, 325);
+		create.setLocation(175, 310);
 		create.setVisible(true);
 		
 		create.addActionListener(new ActionListener() {
@@ -120,7 +120,7 @@ public class CreateNewDepartment extends JDialog {
 		JButton cancel = new JButton("Cancel");
 		cancel.setSize(100, 30);;
 		cancel.setBackground(new Color(238, 238, 238));
-		cancel.setLocation(325, 325);
+		cancel.setLocation(325, 310);
 		cancel.setVisible(true);
 		
 		cancel.addActionListener(new ActionListener() {

@@ -9,7 +9,7 @@ public class TestNewClassWindow {
 
 	public static void main(String[] args) {
 		sqlFunctions sqlFunc = new sqlFunctions();
-		Connection conn = sqlFunc.getDbConnection("sa", ""); 
+		Connection conn = sqlFunc.getDbConnection("mhill", "nursing1"); 
 		
 		createNewClassWindow wind = new createNewClassWindow();
 		wind.createWindow(conn);

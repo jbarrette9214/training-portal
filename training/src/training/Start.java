@@ -158,6 +158,9 @@ public class Start extends JFrame{
 		deptSearch = new DepartmentSearch(mainWindow);
 		mainPanel.add("deptSearch", deptSearch);
 		
+		editEmpPanel = new EditEmployeePanel(mainWindow);
+		mainPanel.add("editEmployee", editEmpPanel);
+		
 		card.show(mainPanel, "empSearch");
 
 	}
@@ -183,6 +186,7 @@ public class Start extends JFrame{
 	private static LoginPanel login;
 	private static EmployeeSearch empSearch;
 	private static DepartmentSearch deptSearch;
+	private static EditEmployeePanel editEmpPanel;
 	private static CardLayout card = new CardLayout();
 	
 	private static String username, password;

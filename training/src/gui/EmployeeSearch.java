@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,7 +23,7 @@ import misc.sqlFunctions;
 import misc.ClassFunctions;
 import misc.employeeFunctions;
 
-public class EmployeeSearch extends JPanel{
+public class EmployeeSearch extends JPanel implements FocusListener{
 
 	public EmployeeSearch(Start mainWindow) {
 		
@@ -29,17 +31,17 @@ public class EmployeeSearch extends JPanel{
 		this.setLayout(null);
 		this.setBackground(new Color(235, 220, 239));
 		
-		Connection tempConn = mainWindow.getOpenedConnection();
+		tempConn = mainWindow.getOpenedConnection();
 		try{
 			PreparedStatement stmt = tempConn.prepareStatement("select * from employee", 
 					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			rs = stmt.executeQuery();
 			
-		} catch(SQLException e) {
-			System.err.println(e);
+		} catch(SQLException k) {
+			System.err.println(k);
 		}
-		
+
 	
 		JLabel nameLabel = new JLabel("Last Name:");
 		nameLabel.setSize(200, 25);
@@ -383,8 +385,29 @@ public class EmployeeSearch extends JPanel{
 		
 	}
 	
+	//so that it constantly updates the resultset everytime this gets focus
+	@Override
+	public void focusGained(FocusEvent e) {
+		try{
+			PreparedStatement stmt = tempConn.prepareStatement("select * from employee", 
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			
+			rs = stmt.executeQuery();
+			
+		} catch(SQLException k) {
+			System.err.println(k);
+		}
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
-	
+	Connection tempConn;
 	private Font h1 = new Font("Serif", Font.BOLD, 25);
 	private DefaultListModel listModel, takenListModel, neededListModel;
 	private JList<String> list;
@@ -392,5 +415,6 @@ public class EmployeeSearch extends JPanel{
 	private ResultSet rs;
 	
 	private int empID, departmentID;
+
 
 }

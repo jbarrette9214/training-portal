@@ -106,7 +106,7 @@ public class createNewEmployeeWindow extends JDialog{
 		
 		JButton create = new JButton("Create");
 		create.setSize(new Dimension(80, 30));
-		create.setLocation(this.getWidth()/2 - 100, 225);
+		create.setLocation(this.getWidth()/2 - 100, 210);
 		create.setBackground(new Color(238, 238, 238));
 		create.setVisible(true);
 		
@@ -152,7 +152,7 @@ public class createNewEmployeeWindow extends JDialog{
 						}
 
 					} catch(SQLException e) {
-						
+						System.out.println(e);
 					}
 					
 					if(executeCreate) {
@@ -172,7 +172,7 @@ public class createNewEmployeeWindow extends JDialog{
 		
 		JButton cancel = new JButton("Cancel");
 		cancel.setSize(new Dimension(80, 30));
-		cancel.setLocation(this.getWidth()/2 + 20, 225);
+		cancel.setLocation(this.getWidth()/2 + 20, 210);
 		cancel.setBackground(new Color(238, 238, 238));
 		cancel.setVisible(true);
 		
@@ -211,6 +211,7 @@ public class createNewEmployeeWindow extends JDialog{
 		
 		
 	}
+	
 	
 	private JTextField firstField = new JTextField();
 	private JTextField lastField = new JTextField();

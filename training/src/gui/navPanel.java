@@ -55,23 +55,42 @@ public class navPanel extends JPanel{
 		this.add(byDeptBtn);
 		this.add(createSep());
 	
+		this.add(Box.createHorizontalStrut(700));
+		JLabel edit = new JLabel("Edit by:");
+		edit.setFont(new Font(search.getFont().getFontName(), Font.BOLD, 20));
+		this.add(edit);
+		
+		JButton editEmployeeBtn = createButton("Edit Employee");
+		editEmployeeBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainWindow.changePanel("editEmployee");
+			}
+		});
+		this.add(editEmployeeBtn);
+		
+		JButton editDepartmentBtn = createButton("Edit department requirements");
+		editDepartmentBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//code for listener here
+			}
+		});
 		
 		
 		//read and setup the icons for the buttons
 		Path iconPath = Paths.get("").toAbsolutePath().resolve("training").resolve("src").resolve("training")
 				.resolve("images");
-		System.out.println(iconPath);
 		try {
 			Image icon = ImageIO.read(new File(iconPath.toString() + "\\person.png"));
 			byEmployeeBtn.setIcon(new ImageIcon(icon));
+			editEmployeeBtn.setIcon(new ImageIcon(icon));
 			icon = ImageIO.read(new File(iconPath.toString() +"\\people.png"));
 			byDeptBtn.setIcon(new ImageIcon(icon));
 		} catch(IOException e) {
 			System.out.println("Couldn't open icon image");
 		}
 
-		
-		
 		
 		this.setVisible(true);
 	}

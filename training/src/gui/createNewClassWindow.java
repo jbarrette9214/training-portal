@@ -128,7 +128,7 @@ public class createNewClassWindow extends JDialog{
 		
 		JButton create = new JButton("Create");
 		create.setSize(100, 30);
-		create.setLocation(window.getWidth()/2 - 150, window.getHeight() - 75);
+		create.setLocation(window.getWidth()/2 - 150, window.getHeight() - 90);
 		create.setBackground(new Color(238, 238, 238));
 		create.setVisible(true);
 
@@ -165,7 +165,7 @@ public class createNewClassWindow extends JDialog{
 		
 		JButton cancel = new JButton("Cancel");
 		cancel.setSize(100, 30);;
-		cancel.setLocation(window.getWidth()/2 + 50, window.getHeight() - 75);
+		cancel.setLocation(window.getWidth()/2 + 50, window.getHeight() - 90);
 		cancel.setBackground(new Color(238, 238, 238));
 		cancel.setVisible(true);
 		cancel.addActionListener(new ActionListener() {
