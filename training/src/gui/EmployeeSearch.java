@@ -50,7 +50,7 @@ public class EmployeeSearch extends JPanel implements FocusListener{
 		nameLabel.setVisible(true);
 		this.add(nameLabel);
 		
-		JTextField nameText = new JTextField();
+		nameText = new JTextField();
 		nameText.setSize(300, 30);
 		nameText.setLocation(175, 45);
 		nameText.setFont(h1);;
@@ -402,12 +402,15 @@ public class EmployeeSearch extends JPanel implements FocusListener{
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		// TODO Auto-generated method stub
-		
+		nameText.setText("");
+		listModel.clear();
+		takenListModel.clear();
+		neededListModel.clear();
 	}
 
 	
 	Connection tempConn;
+	private JTextField nameText;
 	private Font h1 = new Font("Serif", Font.BOLD, 25);
 	private DefaultListModel listModel, takenListModel, neededListModel;
 	private JList<String> list;

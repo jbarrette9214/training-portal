@@ -171,6 +171,13 @@ public class Start extends JFrame{
 	
 	public void changePanel(String panel) {
 		card.show(mainPanel, panel);
+		if(panel.equals("empSearch")) {
+			empSearch.focusGained(null);
+		} else if (panel.equals("deptSearch")) {
+			deptSearch.focusGained(null);
+		} else if (panel.equals("editEmployee")) {
+			editEmpPanel.focusGained(null);
+		}
 	}
 	
 	public String getUserName() {

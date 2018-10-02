@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
@@ -23,14 +25,14 @@ import misc.employeeFunctions;
 import misc.sqlFunctions;
 import training.Start;
 
-public class DepartmentSearch extends JPanel{
+public class DepartmentSearch extends JPanel implements FocusListener{
 
 	public DepartmentSearch(Start mainWindow) {
 		this.setPreferredSize(new Dimension(mainWindow.getWidth(), mainWindow.getHeight() - 60));
 		this.setLayout(null);
 		this.setBackground(new Color(143, 174, 224));
 		
-		Connection tempConn = mainWindow.getOpenedConnection();
+		tempConn = mainWindow.getOpenedConnection();
 		
 		JLabel action = new JLabel("Action To Perform");
 		action.setFont(h1);
@@ -72,87 +74,6 @@ public class DepartmentSearch extends JPanel{
 		deptLabel.setVisible(true);
 		this.add(deptLabel);
 		
-		sqlFunctions sqlFunc = new sqlFunctions();
-		ResultSet rs = sqlFunc.getAllDepartments(tempConn);
-		int count = sqlFunc.getDepartmentCount(tempConn);
-		deptBtns = new JRadioButton[count + 1];
-	
-		deptBtns[0] = new JRadioButton("All");
-		deptBtns[0].setSize(150, 25);
-		deptBtns[0].setLocation(50, 90);
-		deptBtns[0].setBackground(this.getBackground());
-		deptBtns[0].setSelected(true);
-		deptBtns[0].addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				String[] temp = deptChanged(tempConn, 0);
-				
-				classBox.addItem("...");
-				for(String tmp: temp) {
-					classBox.addItem(tmp);
-				}
-			}
-		});
-		
-		
-		
-		deptBtns[0].setVisible(true);
-		deptBtnGrp.add(deptBtns[0]);
-		this.add(deptBtns[0]);
-		
-		try {
-			int index = 1;
-			while(rs.next()) {
-				deptBtns[index] = new JRadioButton(rs.getString("departmentName"));
-				++index;
-			}
-		} catch(SQLException e) {
-			System.err.println(e);
-		}
-		
-		int xCoord = 0, yCoord = 0, rows = 0, col = 1;
-		
-
-		
-		for(int i = 1; i <= count; ++i) {
-			if(i % 4 == 0) {
-				++rows;
-				col = 0;
-			}
-			
-			xCoord = (col  * 200) + 50;
-			yCoord = (rows * 30) + 90;
-
-			deptBtns[i].setSize(150, 25);
-			deptBtns[i].setLocation(xCoord, yCoord);
-			deptBtns[i].setBackground(this.getBackground());
-			
-			deptBtns[i].addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					classBox.removeAllItems();
-					int temp = 1;
-					
-						for(int i = 1; i < deptBtns.length; ++i) {
-							if(deptBtns[i].isSelected()) {
-								temp = i;
-								break;
-							}
-						}
-						String[] tempClasses = deptChanged(tempConn, temp);
-						classBox.addItem("...");
-						for(String temp1 : tempClasses) {
-							classBox.addItem(temp1);
-						}
-					
-				}
-			});
-			
-			deptBtnGrp.add(deptBtns[i]);
-			this.add(deptBtns[i]);
-			
-			++col;
-		}
 		
 		
 		
@@ -169,6 +90,10 @@ public class DepartmentSearch extends JPanel{
 		classBox.setVisible(true);
 		classBox.setEnabled(false);
 		this.add(classBox);
+		
+		xCoord = 0;
+		yCoord = 0;
+		focusGained(null);
 		
 		JSeparator sep2 = new JSeparator();
 		sep2.setSize(mainWindow.getWidth(), 1);
@@ -375,6 +300,100 @@ public class DepartmentSearch extends JPanel{
 	}	//end updateText
 	
 	
+	@Override
+	public void focusGained(FocusEvent e) {
+		sqlFunctions sqlFunc = new sqlFunctions();
+		ResultSet rs = sqlFunc.getAllDepartments(tempConn);
+		int count = sqlFunc.getDepartmentCount(tempConn);
+		deptBtns = new JRadioButton[count + 1];
+	
+		deptBtns[0] = new JRadioButton("All");
+		deptBtns[0].setSize(150, 25);
+		deptBtns[0].setLocation(50, 90);
+		deptBtns[0].setBackground(this.getBackground());
+		deptBtns[0].setSelected(true);
+		deptBtns[0].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				String[] temp = deptChanged(tempConn, 0);
+				
+				classBox.addItem("...");
+				for(String tmp: temp) {
+					classBox.addItem(tmp);
+				}
+			}
+		});
+		
+		
+		
+		deptBtns[0].setVisible(true);
+		deptBtnGrp.add(deptBtns[0]);
+		this.add(deptBtns[0]);
+		
+		try {
+			int index = 1;
+			while(rs.next()) {
+				deptBtns[index] = new JRadioButton(rs.getString("departmentName"));
+				++index;
+			}
+		} catch(SQLException f) {
+			System.err.println(f);
+		}
+		
+		int rows = 0, col = 1;
+		
+
+		
+		for(int i = 1; i <= count; ++i) {
+			if(i % 4 == 0) {
+				++rows;
+				col = 0;
+			}
+			
+			xCoord = (col  * 200) + 50;
+			yCoord = (rows * 30) + 90;
+
+			deptBtns[i].setSize(150, 25);
+			deptBtns[i].setLocation(xCoord, yCoord);
+			deptBtns[i].setBackground(this.getBackground());
+			
+			deptBtns[i].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					classBox.removeAllItems();
+					int temp = 1;
+					
+						for(int i = 1; i < deptBtns.length; ++i) {
+							if(deptBtns[i].isSelected()) {
+								temp = i;
+								break;
+							}
+						}
+						String[] tempClasses = deptChanged(tempConn, temp);
+						classBox.addItem("...");
+						for(String temp1 : tempClasses) {
+							classBox.addItem(temp1);
+						}
+					
+				}
+			});
+			
+			deptBtnGrp.add(deptBtns[i]);
+			this.add(deptBtns[i]);
+			
+			++col;
+		}
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		textBox.setText("");
+	}
+
+	private Connection tempConn;
+	
+	private int xCoord, yCoord;
 	
 	private Font h1 = new Font("serif", Font.BOLD, 22);
 	private Font h2 = new Font("serif", Font.PLAIN, 18);
@@ -388,4 +407,5 @@ public class DepartmentSearch extends JPanel{
 	private JComboBox classBox;
 	
 	private JTextArea textBox;
+
 }

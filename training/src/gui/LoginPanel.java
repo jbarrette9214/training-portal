@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,7 +16,7 @@ import javax.swing.*;
 import misc.sqlFunctions;
 import training.Start;
 
-public class LoginPanel extends JPanel {
+public class LoginPanel extends JPanel implements FocusListener{
 	public LoginPanel(Start mainWindow) {
 		this.setPreferredSize(new Dimension(mainWindow.getWidth(), mainWindow.getHeight() - 60));
 		this.setLayout(null);
@@ -26,12 +28,13 @@ public class LoginPanel extends JPanel {
 		userLabel.setLocation(mainWindow.getWidth()/2 - 200, 200);
 		userLabel.setVisible(true);
 		
-		JTextField userText = new JTextField();
+		userText = new JTextField();
 		userText.setSize(new Dimension(250, 30));
 		userText.setFont(new Font("Serif", Font.PLAIN, 20));
 		userText.setLocation(mainWindow.getWidth()/2 - 50 , 210);
 		userText.setVisible(true);
 		userText.setFocusable(true);
+		userText.requestFocus();
 		
 		
 		JLabel passLabel = new JLabel("Password");
@@ -40,7 +43,7 @@ public class LoginPanel extends JPanel {
 		passLabel.setLocation(mainWindow.getWidth()/2 - 200, 250);
 		passLabel.setVisible(true);
 		
-		JPasswordField passField = new JPasswordField();
+		passField = new JPasswordField();
 		passField.setSize(new Dimension(250, 30));
 		passField.setLocation(mainWindow.getWidth()/2 - 50, 260);
 		passField.setVisible(true);
@@ -94,5 +97,19 @@ public class LoginPanel extends JPanel {
 		this.add(login);
 		
 	}
+
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		userText.setText("");
+		passField.setText("");
+		
+	}
 	
+	private JTextField userText;
+	private JPasswordField passField;
 }

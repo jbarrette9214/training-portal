@@ -53,7 +53,7 @@ public class EditEmployeePanel extends JPanel implements FocusListener{
 		layout.putConstraint(SpringLayout.NORTH, lastLabel , 20, SpringLayout.NORTH, thisPanel);
 		thisPanel.add(lastLabel);
 		
-		JTextField lastNameField = new JTextField(30);
+		lastNameField = new JTextField(30);
 		lastNameField.setFont(new Font("sans serif", Font.PLAIN, 20));
 		layout.putConstraint(SpringLayout.WEST, lastNameField, 25, SpringLayout.EAST, lastLabel);
 		layout.putConstraint(SpringLayout.NORTH, lastNameField, 20, SpringLayout.NORTH, thisPanel);
@@ -409,15 +409,16 @@ public class EditEmployeePanel extends JPanel implements FocusListener{
 		}
 	}
 
+	//clear everything
 	@Override
 	public void focusLost(FocusEvent arg0) {
-		//do nothing
+
 	}
 
 	
 	
 	private Connection conn2;
-	private JTextField firstText, lastText, positionText;
+	private JTextField lastNameField, firstText, lastText, positionText;
 	private DefaultListModel<String> listModel;
 	private JList<String> list;
 	private Font h1 = new Font("sans serif", Font.BOLD, 20);
