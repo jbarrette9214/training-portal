@@ -153,7 +153,6 @@ public class EditEmployeePanel extends JPanel implements FocusListener{
 		firstText.setPreferredSize(new Dimension(300, 30));
 		firstText.setBackground(Color.white);
 		firstText.setFont(new Font("sans serif", Font.PLAIN, 20));
-		firstText.setEditable(false);
 		layout.putConstraint(SpringLayout.WEST, firstText, 25, SpringLayout.EAST, firstLbl);
 		layout.putConstraint(SpringLayout.NORTH, firstText, 25, SpringLayout.SOUTH, sep1);
 		thisPanel.add(firstText);
@@ -169,7 +168,6 @@ public class EditEmployeePanel extends JPanel implements FocusListener{
 		lastText.setPreferredSize(new Dimension(300,30));
 		lastText.setBackground(Color.white);
 		lastText.setFont(new Font("sans serif", Font.PLAIN, 20));
-		lastText.setEditable(false);
 		layout.putConstraint(SpringLayout.WEST, lastText, 25, SpringLayout.EAST, lastLbl);
 		layout.putConstraint(SpringLayout.NORTH, lastText, 25, SpringLayout.SOUTH, firstText);
 		thisPanel.add(lastText);
