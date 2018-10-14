@@ -355,7 +355,13 @@ public class EditEmployeePanel extends JPanel implements FocusListener{
 	
 	private void setAllFields(Connection conn) {
 		String temp = list.getSelectedValue();
+		
+		if(temp == null) {
+			return;
+		}
+		
 		int index = temp.indexOf('>');
+		
 		
 		temp = temp.substring(0, index);
 		int id = Integer.parseInt(temp);

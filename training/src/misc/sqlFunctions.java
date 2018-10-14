@@ -144,7 +144,7 @@ public class sqlFunctions {
 		
 		try {
 			if (!conn.isClosed() &&  conn!= null) {
-				PreparedStatement stmt = conn.prepareStatement("INSERT INTO classes VALUES(?,?,?)");
+				PreparedStatement stmt = conn.prepareStatement("INSERT INTO classes(classCode,employeeID, dateTaken) VALUES(?,?,?)");
 				stmt.setString(1, classCode);
 				stmt.setInt(2, empID);
 				stmt.setString(3, date);
@@ -156,6 +156,7 @@ public class sqlFunctions {
 			}
 		} catch(SQLException e) {
 			System.err.println(e);
+			return "failed";
 		}
 		
 		return "through to the end";
@@ -170,8 +171,8 @@ public class sqlFunctions {
 		
 		try {
 			if(!conn.isClosed() && conn != null) {
-				PreparedStatement stmt = conn.prepareStatement("INSERT INTO required_class_by_dept " +
-						"VALUES(?,?, ?)");
+				PreparedStatement stmt = conn.prepareStatement("INSERT INTO required_class_by_dept" +
+						"(departmentID, classCode, description) VALUES(?,?,?)");
 				stmt.setInt(1, deptID);
 				stmt.setString(2, classCode);
 				stmt.setString(3, desc);
@@ -222,7 +223,7 @@ public class sqlFunctions {
 	//gets all the classes that are required by a particular department, then returns a resultset
 	public ResultSet getRequiredClassesByDept(Connection conn, int deptID) {
 		ResultSet rs1 = null;
-		String sql = "select classCode from required_class_by_dept where departmentID = '" +
+		String sql = "select * from required_class_by_dept where departmentID = '" +
 				deptID + "'";
 		
 		try {
@@ -281,6 +282,18 @@ public class sqlFunctions {
 		try{
 			String sql = "delete from classes where classcode = '" + code + "' and employeeID = " + empID;
 			
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+	}
+	
+	public void deleteClassFromRequired(Connection conn, String classCode, int deptID) {
+		try {
+			String sql = "delete from required_class_by_dept where classcode = '" + classCode + 
+					"' and departmentID = " + deptID;
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			

@@ -49,7 +49,7 @@ public class createDatabase {
 				
 				//create the requred_class_by_dept, have to wait to add foriegn key referenct for
 				//classCode til class table is built
-				SQL = "CREATE TABLE required_class_by_dept(departmentID INT, classCode VARCHAR(10) " +
+				SQL = "CREATE TABLE required_class_by_dept(key INT PRIMARY KEY AUTO_INCREMENT, departmentID INT, classCode VARCHAR(10) " +
 					", description VARCHAR(100))"; 
 				statement.execute(SQL);
 				System.out.println("required created");
@@ -62,7 +62,7 @@ public class createDatabase {
 				
 				
 				//create the classes table
-				SQL = "CREATE TABLE classes (classCode VARCHAR(10) PRIMARY KEY, employeeID INT, dateTaken VARCHAR(10));";
+				SQL = "CREATE TABLE classes (key INT PRIMARY KEY AUTO_INCREMENT, classCode VARCHAR(10), employeeID INT, dateTaken VARCHAR(10));";
 				statement.execute(SQL);
 				System.out.println("classes created");
 				
@@ -74,9 +74,9 @@ public class createDatabase {
 				//set the foreign key in required_class to reference to classes
 				//SQL = "ALTER TABLE required_class_by_dept ADD FOREIGN KEY (classCode) REFERENCES classes(classCode);";
 				
-				SQL = "ALTER TABLE classes ADD FOREIGN KEY (classCode) REFERENCES required_class_by_dept(classCode);";
-				statement.execute(SQL);
-				System.out.println("foreign key in required for classCode references classes(classCode");
+				//SQL = "ALTER TABLE classes ADD FOREIGN KEY (classCode) REFERENCES required_class_by_dept(classCode);";
+				//statement.execute(SQL);
+				//System.out.println("foreign key in required for classCode references classes(classCode");
 				
 				
 				

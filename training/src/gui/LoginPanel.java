@@ -34,7 +34,6 @@ public class LoginPanel extends JPanel implements FocusListener{
 		userText.setLocation(mainWindow.getWidth()/2 - 50 , 210);
 		userText.setVisible(true);
 		userText.setFocusable(true);
-		userText.requestFocus();
 		
 		
 		JLabel passLabel = new JLabel("Password");
@@ -95,6 +94,8 @@ public class LoginPanel extends JPanel implements FocusListener{
 		this.add(passField);
 		this.add(message);
 		this.add(login);
+		
+		userText.requestFocusInWindow();
 		
 	}
 

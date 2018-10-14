@@ -41,6 +41,8 @@ public class PopulateDatabase {
 				String result2;
 				result2 = sqlFunc.addEmployee(conn, "Michelle", "Hill", 1, "RN");
 				System.out.println(result2);
+				result2 = sqlFunc.addEmployee(conn, "Alannah", "Chappell", 1, "LPN");
+				System.out.println(result2);
 				
 				PreparedStatement stmt2 = conn.prepareStatement("select * from employee");
 				ResultSet rs2 = stmt2.executeQuery();

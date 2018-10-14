@@ -161,6 +161,9 @@ public class Start extends JFrame{
 		editEmpPanel = new EditEmployeePanel(mainWindow);
 		mainPanel.add("editEmployee", editEmpPanel);
 		
+		editDeptPanel = new EditDepartmentPanel(mainWindow);
+		mainPanel.add("editDepartment", editDeptPanel);
+		
 		card.show(mainPanel, "empSearch");
 
 	}
@@ -177,6 +180,8 @@ public class Start extends JFrame{
 			deptSearch.focusGained(null);
 		} else if (panel.equals("editEmployee")) {
 			editEmpPanel.focusGained(null);
+		} else if (panel.equals("editDepartment")) {
+			editDeptPanel.focusGained(null);
 		}
 	}
 	
@@ -194,6 +199,8 @@ public class Start extends JFrame{
 	private static EmployeeSearch empSearch;
 	private static DepartmentSearch deptSearch;
 	private static EditEmployeePanel editEmpPanel;
+	private static EditDepartmentPanel editDeptPanel;
+	
 	private static CardLayout card = new CardLayout();
 	
 	private static String username, password;
