@@ -95,9 +95,7 @@ public class MyMenu extends JMenuBar{
 		editMenu.add(employeeEdit);
 		employeeEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				
-//code for listener
-				
+				mainWindow.changePanel("editEmployee");
 			}
 		});
 		
@@ -105,9 +103,7 @@ public class MyMenu extends JMenuBar{
 		editMenu.add(deptEdit);
 		deptEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				
-//code for listener
-				
+				mainWindow.changePanel("editDepartment");
 			}
 		});
 		

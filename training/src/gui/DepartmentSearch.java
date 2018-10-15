@@ -74,8 +74,87 @@ public class DepartmentSearch extends JPanel implements FocusListener{
 		deptLabel.setVisible(true);
 		this.add(deptLabel);
 		
+		sqlFunctions sqlFunc = new sqlFunctions();
+		ResultSet rs = sqlFunc.getAllDepartments(tempConn);
+		int count = sqlFunc.getDepartmentCount(tempConn);
+		deptBtns = new JRadioButton[count + 1];
+	
+		deptBtns[0] = new JRadioButton("All");
+		deptBtns[0].setSize(150, 25);
+		deptBtns[0].setLocation(50, 90);
+		deptBtns[0].setBackground(this.getBackground());
+		deptBtns[0].setSelected(true);
+		deptBtns[0].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				String[] temp = deptChanged(tempConn, 0);
+				
+				classBox.addItem("...");
+				for(String tmp: temp) {
+					classBox.addItem(tmp);
+				}
+			}
+		});
 		
 		
+		
+		deptBtns[0].setVisible(true);
+		deptBtnGrp.add(deptBtns[0]);
+		this.add(deptBtns[0]);
+		
+		try {
+			int index = 1;
+			while(rs.next()) {
+				deptBtns[index] = new JRadioButton(rs.getString("departmentName"));
+				++index;
+			}
+		} catch(SQLException f) {
+			System.err.println(f);
+		}
+		
+		int rows = 0, col = 1;
+		
+
+		
+		for(int i = 1; i <= count; ++i) {
+			if(i % 4 == 0) {
+				++rows;
+				col = 0;
+			}
+			
+			xCoord = (col  * 200) + 50;
+			yCoord = (rows * 30) + 90;
+			
+			deptBtns[i].setSize(150, 25);
+			deptBtns[i].setLocation(xCoord, yCoord);
+			deptBtns[i].setBackground(this.getBackground());
+			
+			deptBtns[i].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					classBox.removeAllItems();
+					int temp = 1;
+					
+						for(int i = 1; i < deptBtns.length; ++i) {
+							if(deptBtns[i].isSelected()) {
+								temp = i;
+								break;
+							}
+						}
+						String[] tempClasses = deptChanged(tempConn, temp);
+						classBox.addItem("...");
+						for(String temp1 : tempClasses) {
+							classBox.addItem(temp1);
+						}
+					
+				}
+			});
+			
+			deptBtnGrp.add(deptBtns[i]);
+			this.add(deptBtns[i]);
+			
+			++col;
+		}
 		
 		JLabel classLbl = new JLabel("Classes");
 		classLbl.setSize(100, 20);
@@ -91,9 +170,6 @@ public class DepartmentSearch extends JPanel implements FocusListener{
 		classBox.setEnabled(false);
 		this.add(classBox);
 		
-		xCoord = 0;
-		yCoord = 0;
-		focusGained(null);
 		
 		JSeparator sep2 = new JSeparator();
 		sep2.setSize(mainWindow.getWidth(), 1);
@@ -133,9 +209,9 @@ public class DepartmentSearch extends JPanel implements FocusListener{
 					textBox.append(needed.getText() + "\t");
 				}
 				
-				for(JRadioButton btn : deptBtns) {
-					if(btn.isSelected()) {
-						textBox.append("Department: " + btn.getText() + "\t");
+				for(int i = 0; i < deptBtns.length; ++i) {
+					if(deptBtns[i].isSelected()) {
+						textBox.append("Department: " + deptBtns[i].getText() + "\t");
 					}
 				}
 				
@@ -265,15 +341,14 @@ public class DepartmentSearch extends JPanel implements FocusListener{
 			System.out.println(e);
 		}
 		
-		for(int i = 0; i < temp.length; ++i) {
-			System.out.println(temp[i]);
-		}
 		return temp;
 	}	//end deptChanged
 	
 	private void updateTextArea(Connection conn) {
 		
 		employeeFunctions empFunc = new employeeFunctions();
+		
+		
 		if(deptBtns[0].isSelected()) {
 			//have to go through all the departments
 			for(int i = 1; i < deptBtns.length; ++i) {
@@ -301,92 +376,6 @@ public class DepartmentSearch extends JPanel implements FocusListener{
 	
 	
 	@Override
-	public void focusGained(FocusEvent e) {
-		sqlFunctions sqlFunc = new sqlFunctions();
-		ResultSet rs = sqlFunc.getAllDepartments(tempConn);
-		int count = sqlFunc.getDepartmentCount(tempConn);
-		deptBtns = new JRadioButton[count + 1];
-	
-		deptBtns[0] = new JRadioButton("All");
-		deptBtns[0].setSize(150, 25);
-		deptBtns[0].setLocation(50, 90);
-		deptBtns[0].setBackground(this.getBackground());
-		deptBtns[0].setSelected(true);
-		deptBtns[0].addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				String[] temp = deptChanged(tempConn, 0);
-				
-				classBox.addItem("...");
-				for(String tmp: temp) {
-					classBox.addItem(tmp);
-				}
-			}
-		});
-		
-		
-		
-		deptBtns[0].setVisible(true);
-		deptBtnGrp.add(deptBtns[0]);
-		this.add(deptBtns[0]);
-		
-		try {
-			int index = 1;
-			while(rs.next()) {
-				deptBtns[index] = new JRadioButton(rs.getString("departmentName"));
-				++index;
-			}
-		} catch(SQLException f) {
-			System.err.println(f);
-		}
-		
-		int rows = 0, col = 1;
-		
-
-		
-		for(int i = 1; i <= count; ++i) {
-			if(i % 4 == 0) {
-				++rows;
-				col = 0;
-			}
-			
-			xCoord = (col  * 200) + 50;
-			yCoord = (rows * 30) + 90;
-
-			deptBtns[i].setSize(150, 25);
-			deptBtns[i].setLocation(xCoord, yCoord);
-			deptBtns[i].setBackground(this.getBackground());
-			
-			deptBtns[i].addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					classBox.removeAllItems();
-					int temp = 1;
-					
-						for(int i = 1; i < deptBtns.length; ++i) {
-							if(deptBtns[i].isSelected()) {
-								temp = i;
-								break;
-							}
-						}
-						String[] tempClasses = deptChanged(tempConn, temp);
-						classBox.addItem("...");
-						for(String temp1 : tempClasses) {
-							classBox.addItem(temp1);
-						}
-					
-				}
-			});
-			
-			deptBtnGrp.add(deptBtns[i]);
-			this.add(deptBtns[i]);
-			
-			++col;
-		}
-		
-	}
-
-	@Override
 	public void focusLost(FocusEvent e) {
 		textBox.setText("");
 	}
@@ -399,7 +388,7 @@ public class DepartmentSearch extends JPanel implements FocusListener{
 	private Font h2 = new Font("serif", Font.PLAIN, 18);
 	private ButtonGroup btnGroup = new ButtonGroup();
 	
-	private JRadioButton[] deptBtns;
+	private JRadioButton deptBtns[];
 	private ButtonGroup deptBtnGrp = new ButtonGroup();
 	
 	private String[] classes;
@@ -407,5 +396,13 @@ public class DepartmentSearch extends JPanel implements FocusListener{
 	private JComboBox classBox;
 	
 	private JTextArea textBox;
+	
+	private int selected;
+
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
