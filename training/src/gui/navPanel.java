@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.*;
 
 import javax.imageio.ImageIO;
@@ -81,20 +82,10 @@ public class navPanel extends JPanel{
 		this.add(editDepartmentBtn);
 		
 		//read and setup the icons for the buttons
-		Path iconPath = Paths.get("").toAbsolutePath().resolve("training").resolve("src").resolve("training")
-				.resolve("images");
-		try {
-			Image icon = ImageIO.read(new File(iconPath.toString() + "\\person.png"));
-			byEmployeeBtn.setIcon(new ImageIcon(icon));
-			icon = ImageIO.read(new File(iconPath.toString() + "\\edit.png"));
-			editEmployeeBtn.setIcon(new ImageIcon(icon));
-			icon = ImageIO.read(new File(iconPath.toString() +"\\people.png"));
-			byDeptBtn.setIcon(new ImageIcon(icon));
-			icon = ImageIO.read(new File(iconPath.toString() + "\\editDept.png"));
-			editDepartmentBtn.setIcon(new ImageIcon(icon));
-		} catch(IOException e) {
-			System.out.println("Couldn't open icon image");
-		}
+		byEmployeeBtn.setIcon(new ImageIcon(this.getClass().getResource("/person.png")));
+		editEmployeeBtn.setIcon(new ImageIcon(this.getClass().getResource("/edit.png")));
+		byDeptBtn.setIcon(new ImageIcon(this.getClass().getResource("/people.png")));
+		editDepartmentBtn.setIcon(new ImageIcon(this.getClass().getResource("/editDept.png")));
 
 		
 		this.setVisible(true);

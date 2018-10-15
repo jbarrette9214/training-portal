@@ -200,7 +200,6 @@ public class EditDepartmentPanel extends JPanel implements FocusListener {
 						break;
 					}
 				}
-				System.out.println(deptID);
 				//make sure that something is selected
 				String classCode = "";
 				String desc = "";
@@ -218,11 +217,10 @@ public class EditDepartmentPanel extends JPanel implements FocusListener {
 							desc = rs.getString("description");
 							break;
 						}
-						System.out.println(desc);
 					} catch (SQLException e) {
 						System.err.println(e);
 					}
-					System.out.println(classCode);
+				
 				} else {
 					//show message
 					message.setText("Must select a class from Other Classes");
