@@ -337,8 +337,9 @@ public class EmployeeSearch extends JPanel implements FocusListener{
 		ClassFunctions classFunc = new ClassFunctions();
 		
 		ResultSet rs2 = sqlFunc.getPersonsClasses(conn, id);
-		ResultSet rs3 = sqlFunc.getRequiredClassesByDept(conn, id);	//required
+		ResultSet rs3 = sqlFunc.getRequiredClassesByDept(conn, deptID);	//required
 
+		
 		try {
 			int count = 0;
 			while(rs2.next()) {
